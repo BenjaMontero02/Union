@@ -20,7 +20,8 @@ validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
       const {id} = req.params;
-      const user = await service.getUser(id);
+      const user = await service.getById(id);
+      res.json(user);
     } catch (error) {
       next(error);
     }

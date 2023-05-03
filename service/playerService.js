@@ -1,9 +1,8 @@
-const pool = require('../libs/connect');
+const sequelize = require('../libs/sequelize');
 
 class PlayersService{
 
   constructor(){
-    this.pool = pool;
   }
 
   async create(body){
@@ -18,8 +17,8 @@ class PlayersService{
 
   async getAll(){
     const query = 'SELECT * FROM jugador'
-    const res = await this.pool.query(query);
-    return res.rows;
+    const [data] = await sequelize.query(query);
+    return data;
   };
 
   async getById(id){
