@@ -20,15 +20,13 @@ const PlayerSchema = {
     type: DataTypes.STRING
   },
 
-  fechaNac: {
+  fecha_nac: {
     allowNull: true,
-    field: 'fecha_nac',
     type: DataTypes.DATE,
   },
 
-  categoriaId: {
+  categoria_id: {
     allowNull: false,
-    field: 'categoria_id',
     type: DataTypes.INTEGER,
   }
 }
@@ -41,7 +39,7 @@ class Player extends Model {
       return {
         sequelize,
         tableName: PLAYER_TABLE,
-        modelName: 'jugador',
+        modelName: 'Jugador',
         timestamps : false,
       }
     }

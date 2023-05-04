@@ -11,7 +11,7 @@ const categoria_id = Joi.number().id();
 const createPlayerSchema = Joi.object({
   nombre: nombre.required(),
   apellido: apellido.required(),
-  fecha_nac: fecha_nac.required(),
+  fecha_nac: fecha_nac,
   categoria_id: categoria_id.required()
 })
 

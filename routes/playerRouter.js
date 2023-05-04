@@ -27,12 +27,18 @@ router.get('/:id',
     try {
       const { id } = req.params;
       const player = await service.getById(id);
-      res.json(player);
+      if(player){
+        res.json(player);
+      }else{
+        res.status(404).send({message: `No existe jugador con el id:${id}`});
+      }
     } catch (error) {
       next(error)
     }
 })
 
+
+//falta hcer esto -----------------------------------------------------------------------------------------
 router.get('/:id/paid-fees',
   validatorHandler(getPlayerSchema, 'params'),
   async (req, res, next) => {
@@ -51,9 +57,11 @@ router.post('/',
     try {
       const body = req.body;
       const create = await service.create(body);
-      res.send({
-        message: 'creado'
-      });
+      if(create) {
+          res.status(201).send({message: `se a creado el jugador con el id: ${create.id}`});
+      }else{
+        res.status(400).send({message: `error en la sintaxis`});
+      }
     } catch (error) {
       next(error);
     }
@@ -67,14 +75,12 @@ router.put('/:id',
       try {
         const {id} = req.params;
         const body = req.body;
-        const update  = await service.update(id, body);
+        await service.update(id, body);
         res.status(201).json({
           message: 'updated',
-          data: body,
-          id: id
         })
       } catch (error) {
-        next(error);
+        next(boom.badRequest(error));
       }
   }
 );
@@ -85,11 +91,12 @@ router.delete('/:id',
       try {
         const { id } = req.params;
         const deletePlayer = await service.delete(id);
-        res.status(200).json({
-          message: 'deleted',
-          id: id
-        })
-      } catch (error) {
+        if(deletePlayer){
+          res.status(200).send({ message: `se elimino el jugador con id: ${id} `});
+        }else{
+          res.status(404).send({ message: 'el id ingresado no existe'});
+        }
+      }catch (error) {
         next(error);
       }
 });

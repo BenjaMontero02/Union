@@ -1,4 +1,5 @@
-const sequelize = require('../libs/sequelize');
+//models es donde sequelize levanta los modelos y es donde se puede consultar
+const { models } = require('../libs/sequelize');
 
 class PlayersService{
 
@@ -6,31 +7,36 @@ class PlayersService{
   }
 
   async create(body){
-
-    //const res = await this.pool.query(query);
-    return true;
+    const create = await models.Jugador.create(body);
+    return create;
   }
 
-  delete(id){
-    return true
+  async delete(id){
+    const player = await models.Jugador.findByPk(id);
+    if(player){
+      await player.destroy();
+      return true;
+    }else{
+      return false;
+    }
   }
 
   async getAll(){
-    const query = 'SELECT * FROM jugador'
-    const [data] = await sequelize.query(query);
-    return data;
+    const rta = await models.Jugador.findAll();
+    return rta;
   };
 
   async getById(id){
-    const query = `SELECT * FROM public.jugador WHERE id = ${id}`;
-    const res = await this.pool.query(query);
-    return res.rows;
+    const rta = await models.Jugador.findByPk(id);
+    return rta;
   };
 
   // getAllPlayersByPaidFees();
 
   async update(id, body){
-    return true
+    const player = await models.Jugador.findByPk(id);
+    const rta = await player.update(body);
+    return rta;
   };
 
 }

@@ -15,11 +15,9 @@ function validatorHandler(schema, propierty){
       if(error){
         //le indico que clase de error es, al ser un error en la peticion se pone badrequest
         next(boom.badRequest(error));
+      }else{
+        next()
       }
-
-      //en caso que no haya error, sigue con el procedimiento y hace lo q tenga q hacer xd
-      next()
-
     }
 
 }

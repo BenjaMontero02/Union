@@ -23,7 +23,7 @@ const CoutaSchema = {
   }
 }
 
-class Couta extends Model {
+class Cuota extends Model {
 
   static associations(){
 
@@ -32,10 +32,12 @@ class Couta extends Model {
   static config(sequelize){
 
     return {
-    sequelize,
-    tableName: CUOTA_TABLE,
-    modelName: 'cuota',
-    timestamps: false,
+      sequelize,
+      tableName: CUOTA_TABLE,
+      modelName: 'cuota',
+      timestamps: false,
     }
   }
 }
+
+module.exports = { CUOTA_TABLE, Cuota, CoutaSchema};
